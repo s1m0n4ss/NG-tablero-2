@@ -1,1 +1,138 @@
-<!-- Página principal del tablero (index.html) -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tablero digital – Congregación Norte Garín</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --brand:#059669;
+      --bg:#f0fdf4;
+      --surface:#ffffff;
+      --text:#052e24;
+      --shadow:0 6px 20px rgba(2,6,23,.1);
+    }
+    body {
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      margin:0;
+      padding:0;
+    }
+    header {
+      background:linear-gradient(135deg,#10b981,#059669);
+      color:#fff;
+      padding:2rem 1rem;
+      text-align:center;
+      border-bottom:3px solid #34d399;
+      border-radius:0 0 30px 30px;
+      box-shadow:var(--shadow);
+    }
+    header h1 {
+      font-weight:800;
+      font-size:2rem;
+      margin:0;
+    }
+    header p { opacity:.9; margin-top:.3rem; }
+
+    main {
+      display:grid;
+      gap:1.2rem;
+      grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+      padding:2rem;
+      max-width:1200px;
+      margin:auto;
+    }
+    .card {
+      background:var(--surface);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      padding:1.2rem;
+      transition:transform .25s, box-shadow .25s;
+    }
+    .card:hover {
+      transform:translateY(-6px);
+      box-shadow:0 12px 28px rgba(2,6,23,.15);
+    }
+    .card h3 { font-weight:700; font-size:1.1rem; margin-bottom:.5rem; }
+    .card p { font-size:.9rem; color:#3f7668; margin-bottom:1rem; }
+    .card a {
+      text-decoration:none;
+      color:var(--brand);
+      font-weight:600;
+      font-size:.95rem;
+    }
+    footer {
+      text-align:center;
+      padding:2rem 1rem;
+      font-size:.85rem;
+      color:#3f7668;
+    }
+    footer a {
+      text-decoration:none;
+      color:var(--brand);
+      font-weight:600;
+      margin:0 .5rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Tablero digital</h1>
+  <p>Congregación Norte Garín</p>
+</header>
+
+<main>
+  <div class="card">
+    <h3>Salidas a predicar</h3>
+    <p>Horarios y puntos de encuentro.</p>
+    <a href="./programa-octubre.html">Acceder →</a>
+  </div>
+
+  <div class="card">
+    <h3>Vida y Ministerio</h3>
+    <p>Programa de asignaciones.</p>
+    <a href="./vida-y-ministerio.html">Acceder →</a>
+  </div>
+
+  <div class="card">
+    <h3>Discursos públicos</h3>
+    <p>Títulos, oradores y presidentes.</p>
+    <a href="./arreglos-conferencia.html">Acceder →</a>
+  </div>
+
+  <div class="card">
+    <h3>Programa de Lectores</h3>
+    <p>La Atalaya y Estudio Bíblico de la Congregación.</p>
+    <a href="./lectores.html">Acceder →</a>
+  </div>
+
+  <div class="card">
+    <h3>Multimedia y Acomodadores</h3>
+    <p>Consulta si estás asignado.</p>
+    <a href="./audio-video-acomodadores.html">Acceder →</a>
+  </div>
+
+  <div class="card">
+    <h3>Programa de limpieza</h3>
+    <p>Grupos asignados, instructivos de limpieza.</p>
+    <a href="./limpieza.html">Acceder →</a>
+  </div>
+
+  <div class="card">
+    <h3>Grupos para el servicio del campo</h3>
+    <p>Asignados a cada grupo.</p>
+    <a href="./grupos.html">Acceder →</a>
+  </div>
+</main>
+
+<footer>
+  <a href="https://www.jw.org" target="_blank">Sitio oficial jw.org</a> ·
+  <a href="https://wol.jw.org/es" target="_blank">Biblioteca en línea</a>
+</footer>
+
+</body>
+</html>
