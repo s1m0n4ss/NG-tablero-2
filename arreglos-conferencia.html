@@ -1,1 +1,45 @@
-<!-- Arreglos de Conferencia -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>Arreglos de Conferencia – Octubre & Noviembre</title>
+  <meta name="color-scheme" content="light dark"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --ng-border:#d1fae5; --ng-card:#f0fdf4; --ng-surface:#ffffff;
+      --ng-brand:#059669; --ng-text:#052e24; --ng-text2:#3f7668;
+      --ng-radius:18px; --ng-shadow:0 10px 28px rgba(2,6,23,.10);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ng-border:#134e4a; --ng-card:#064e3b; --ng-surface:#052e24;
+        --ng-brand:#34d399; --ng-text:#f0fdf4; --ng-text2:#a7f3d0;
+      }
+      body { background:#021f18; }
+    }
+
+    body {
+      font-family:'Inter',ui-sans-serif,system-ui;
+      background:#f6fef9;
+      color:var(--ng-text);
+      margin:0;
+    }
+    .ng-container { max-width:1024px; margin:auto; }
+    .ng-grid { display:grid; grid-template-columns:1fr; gap:1rem; padding:1rem; }
+    @media (min-width:768px){ .ng-grid{ grid-template-columns:1fr 1fr; } }
+
+    .ng-surface{ background:var(--ng-surface); border:1px solid var(--ng-border); border-radius:var(--ng-radius); box-shadow:var(--ng-shadow); }
+    .ng-card{ background:var(--ng-card); border:1px solid var(--ng-border); border-radius:calc(var(--ng-radius)-6px); box-shadow:0 6px 18px rgba(2,6,23,.06); }
+    .ng-title-xl{ font-weight:800; letter-spacing:.04em; font-size:clamp(1.6rem,4vw + .6rem,2.4rem); }
+    .ng-name-lg{ font-weight:700; font-size:clamp(1.05rem,2.4vw + .6rem,1.4rem); }
+    .ng-hint{ color:var(--ng-text2); font-size:.9rem; }
+
+    .ng-banner{
+      position:fixed; top:12px; left:50%; transform:translateX(-50%);
+      z-index:9999; width:min(620px,calc(100% - 24px));
+      text-align:center; background:rgba(255,255,255,.66);
+      border:1px solid rgba(209,250,229,.85);
+      border-radius:28px; box-shadow:0 22px 48px rgba(2,6,23,.18),0 6px 16px rg
