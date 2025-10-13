@@ -3,123 +3,227 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Programa de Lectores – Congregación Norte Garín</title>
+  <title>Programa de Lectores</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <meta name="color-scheme" content="light dark" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
-
   <style>
-    :root {
-      --border:#d1fae5; --card:#f0fdf4; --surface:#ffffff;
-      --brand:#059669; --text:#052e24; --text2:#3f7668;
-      --radius:18px; --shadow:0 10px 28px rgba(2,6,23,.10);
+    :root{
+      /* Zafiro–cian + glass */
+      --radius:18px; --shadow:0 10px 28px rgba(2,6,23,.12);
+      --bg-body:#f8fafc; --bg-surface:#ffffffcc; --text-primary:#0f172a; --text-secondary:#475569;
+      --brand:#2563eb; --brand-2:#06b6d4;
+      --card:#f1f5f9cc; --border:#e2e8f0;
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --border:#134e4a; --card:#064e3b; --surface:#021f18;
-        --brand:#34d399; --text:#ecfdf5; --text2:#a7f3d0;
-      }
-      body { background:#011d15; }
-    }
-
-    body {
-      font-family:'Inter',sans-serif;
-      background:#f6fef9;
-      color:var(--text);
-      margin:0;
+    .dark:root{
+      --bg-body:#0b1220; --bg-surface:#1e293b; --text-primary:#e2e8f0; --text-secondary:#94a3b8;
+      --brand:#60a5fa; --brand-2:#22d3ee;
+      --card:#0f172a; --border:#334155;
     }
 
-    header {
-      position:sticky; top:0; z-index:10;
-      text-align:center;
-      padding:1.5rem 1rem;
-      background:var(--surface);
-      border-bottom:1px solid var(--border);
-      box-shadow:0 8px 16px rgba(2,6,23,.06);
+    *{ -webkit-tap-highlight-color:transparent; }
+    html,body{ height:100%; }
+    body{
+      font-family:'Inter',ui-sans-serif,system-ui;
+      background: var(--bg-body);
+      color: var(--text-primary);
+      transition: background .3s, color .3s;
     }
 
-    header h1 {
-      font-size:clamp(1.4rem,4vw,2rem);
-      font-weight:800;
-      color:var(--brand);
-      margin:0;
-    }
-    header p { margin:.4rem 0 0; color:var(--text2); }
-
-    main {
-      max-width:900px;
-      margin:2rem auto;
-      padding:0 1rem;
-      display:grid;
-      gap:1rem;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    }
-
-    .card {
-      background:var(--card);
+    /* Contenedor + header (glass) */
+    .container-bg{
+      background: var(--bg-surface);
       border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:1rem 1.2rem;
-      transition:transform .2s, box-shadow .2s;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
     }
-    .card:hover {
-      transform:translateY(-5px);
-      box-shadow:0 12px 24px rgba(2,6,23,.12);
+    .header-bg{
+      background: linear-gradient(120deg, rgba(99,102,241,.10), rgba(6,182,212,.08)), var(--bg-surface);
+      border-bottom:1px solid var(--border);
+      backdrop-filter: blur(10px);
     }
 
-    h2 { font-weight:700; font-size:1.1rem; color:var(--text); margin-bottom:.4rem; }
-    p { color:var(--text2); font-size:.9rem; margin:.1rem 0 .6rem; }
+    /* Segmented */
+    .segmented{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px;
+      display:flex; gap:4px;
+    }
+    .seg-btn{
+      flex:1 1 0; border-radius:999px; font-weight:700; padding:.6rem .9rem; font-size:.9rem;
+      transition: background .2s, color .2s, transform .12s;
+    }
+    .seg-btn:active{ transform: translateY(1px); }
+    .seg-btn.active{
+      background: linear-gradient(90deg, rgba(37,99,235,.18), rgba(6,182,212,.16));
+      color: #0b1220;
+    }
+    .dark .seg-btn.active{ color:#e2e8f0; background: linear-gradient(90deg, rgba(96,165,250,.25), rgba(34,211,238,.18)); }
 
-    footer {
-      text-align:center;
-      padding:2rem 1rem;
-      font-size:.85rem;
-      color:var(--text2);
+    /* Cards */
+    .card{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: calc(var(--radius) - 6px);
+      box-shadow: 0 6px 18px rgba(2,6,23,.08);
+      transition: transform .18s, box-shadow .18s, border-color .25s, background .25s;
     }
-    footer a {
-      color:var(--brand);
-      font-weight:600;
-      text-decoration:none;
-      margin:0 .5rem;
+    .card:hover{ transform: translateY(-2px); box-shadow: 0 12px 28px rgba(2,6,23,.14); }
+    .chip{
+      font-size:.72rem; padding:.35rem .6rem; border-radius:999px;
+      border:1px solid var(--border); color:var(--brand);
+      background: rgba(37,99,235,.08);
     }
+
+    @keyframes pulse-border{
+      0%{box-shadow:0 0 0 0 rgba(37,99,235,.45)}
+      70%{box-shadow:0 0 0 12px rgba(37,99,235,0)}
+      100%{box-shadow:0 0 0 0 rgba(37,99,235,0)}
+    }
+    .is-current{ border-color:var(--brand)!important; animation:pulse-border 1.4s infinite; }
+
+    .title-xl{ font-weight:800; letter-spacing:.04em; font-size:clamp(1.6rem, 4vw + .6rem, 2.4rem); }
+    .date-xxl{ font-weight:800; line-height:1; font-size:clamp(3rem, 9vw + .5rem, 4rem); color:var(--brand); }
+    .name-lg{ font-weight:700; font-size:clamp(1.05rem, 2.4vw + .6rem, 1.4rem); }
+    .hint{ color:var(--text-secondary); font-size:.82rem; }
+
+    @media (max-width:640px){
+      .title-xl{ font-size:1.6rem; }
+    }
+    @media print{ body{ background:#fff; } .container-bg{ box-shadow:none; } }
   </style>
+  <script>
+    // Heredar modo oscuro del tablero (sin toggle aquí)
+    (function(){
+      const saved = localStorage.getItem('theme');
+      if(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)){
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
 </head>
+<body class="min-h-screen p-3 sm:p-6">
+  <main class="container-bg max-w-xl mx-auto overflow-hidden">
+    <header class="header-bg sticky top-0 z-10 px-4 py-4">
+      <h1 class="title-xl">Octubre</h1>
+    </header>
 
-<body>
-  <header>
-    <h1>Programa de Lectores</h1>
-    <p>Consulta quién tiene la lectura cada semana</p>
-  </header>
+    <section class="px-4 pt-4 pb-2">
+      <div class="segmented">
+        <button id="btnBiblico" class="seg-btn" type="button">Estudio Bíblico</button>
+        <button id="btnAtalaya" class="seg-btn active" type="button">La Atalaya</button>
+      </div>
+      <p id="hint" class="hint mt-2">Lectores de La Atalaya • Sábado</p>
+    </section>
 
-  <main>
-    <div class="card">
-      <h2>Semana 1</h2>
-      <p><b>Lector:</b> Daniel Albis</p>
-      <p><b>Lectura:</b> Éxodo 14:1–31</p>
-    </div>
-
-    <div class="card">
-      <h2>Semana 2</h2>
-      <p><b>Lector:</b> Mario Segovia</p>
-      <p><b>Lectura:</b> Éxodo 15:1–27</p>
-    </div>
-
-    <div class="card">
-      <h2>Semana 3</h2>
-      <p><b>Lector:</b> Lucas Segovia</p>
-      <p><b>Lectura:</b> Éxodo 16:1–36</p>
-    </div>
-
-    <div class="card">
-      <h2>Semana 4</h2>
-      <p><b>Lector:</b> Horacio Salgado</p>
-      <p><b>Lectura:</b> Éxodo 17:1–16</p>
-    </div>
+    <section id="programContainer" class="grid grid-cols-1 gap-3 px-4 pb-5"></section>
   </main>
 
-  <footer>
-    <a href="https://www.jw.org" target="_blank">Sitio oficial jw.org</a> ·
-    <a href="https://wol.jw.org/es" target="_blank">Biblioteca en línea</a>
-  </footer>
+  <script>
+    // === Datos (tus textos intactos) ===
+    const data = {
+      biblico: {
+        title: 'Estudio Bíblico de la Congregación',
+        dayLabel: 'Martes',
+        dayIndex: 2, // 0=Dom
+        monthIndex: 9, // Octubre (0-based)
+        schedule: [
+          { date: '07', name: 'DARÍO CORTEZ' },
+          { date: '14', name: 'LEÓN SEGOVIA' },
+          { date: '21', name: 'DIEGO SARRAUTE' },
+          { date: '28', name: 'JUAN CARLOS SÁNCHEZ' }
+        ]
+      },
+      atalaya: {
+        title: 'Lectores de La Atalaya',
+        dayLabel: 'Sábado',
+        dayIndex: 6,
+        monthIndex: 9,
+        schedule: [
+          { date: '04', name: 'LUCAS SEGOVIA' },
+          { date: '11', name: 'ADOLFO GUTIÉRREZ' },
+          { date: '18', name: 'HORACIO SALGADO' },
+          { date: '25', name: 'MARIO SEGOVIA' }
+        ]
+      }
+    };
+
+    // === Utilidades ===
+    const programContainer = document.getElementById('programContainer');
+    const btnBiblico = document.getElementById('btnBiblico');
+    const btnAtalaya = document.getElementById('btnAtalaya');
+    const hint = document.getElementById('hint');
+
+    function initials(name){
+      return name.split(/\s+/).slice(0,2).map(s=>s[0]).join('').toUpperCase();
+    }
+    function dateFromEntry(year, monthIndex, dayStr){
+      return new Date(year, monthIndex, parseInt(dayStr,10));
+    }
+    function startOfWeekForTargetDow(today, targetDow){
+      const dow = today.getDay();
+      const diff = today.getDate() - dow + (targetDow % 7);
+      return new Date(today.getFullYear(), today.getMonth(), diff);
+    }
+    function pickHighlightIndex(prog){
+      const now = new Date();
+      const year = now.getFullYear();
+      const start = startOfWeekForTargetDow(now, prog.dayIndex);
+      const end = new Date(start); end.setDate(end.getDate()+6);
+      // 1) Dentro de la semana actual del programa
+      for (let i=0;i<prog.schedule.length;i++){
+        const d = dateFromEntry(year, prog.monthIndex, prog.schedule[i].date);
+        if (d >= start && d <= end) return i;
+      }
+      // 2) Próximo futuro >= hoy
+      for (let i=0;i<prog.schedule.length;i++){
+        const d = dateFromEntry(year, prog.monthIndex, prog.schedule[i].date);
+        if (d >= now) return i;
+      }
+      return -1;
+    }
+
+    function render(key){
+      const prog = data[key];
+      hint.textContent = `${prog.title} • ${prog.dayLabel}`;
+      const hi = pickHighlightIndex(prog);
+
+      const html = prog.schedule.map((entry, idx)=>{
+        const isCurrent = idx === hi;
+        return `
+          <article class="card p-4 ${isCurrent? 'is-current':''}" tabindex="0" aria-label="${prog.dayLabel} ${entry.date}: ${entry.name}">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-full grid place-items-center bg-white/80 dark:bg-white/10 border" style="border-color:var(--border)">
+                <span class="font-extrabold">${initials(entry.name)}</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="uppercase text-[.78rem] tracking-wide" style="color:var(--text-secondary)">
+                  ${prog.dayLabel}${isCurrent ? ' · <span class="chip">Próximo lector</span>' : ''}
+                </div>
+                <div class="date-xxl mt-1 mb-1">${entry.date}</div>
+                <div class="name-lg truncate">${entry.name}</div>
+              </div>
+            </div>
+          </article>`;
+      }).join('');
+
+      programContainer.innerHTML = html;
+    }
+
+    // Segmented toggle (estados visuales)
+    function setActive(btn){
+      [btnBiblico, btnAtalaya].forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    btnBiblico.addEventListener('click',()=>{ setActive(btnBiblico); render('biblico'); });
+    btnAtalaya.addEventListener('click',()=>{ setActive(btnAtalaya); render('atalaya'); });
+
+    // Inicial
+    render('atalaya');
+  </script>
 </body>
 </html>
