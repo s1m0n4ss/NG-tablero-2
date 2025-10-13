@@ -1,125 +1,217 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Programa de Limpieza – Congregación Norte Garín</title>
-  <meta name="color-scheme" content="light dark" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Programa de Limpieza – Congregación Norte Garín</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<meta name="color-scheme" content="light dark" />
+<style>
+:root {
+  --radius: 18px;
+  --shadow: 0 10px 28px rgba(2,6,23,.10);
+  --bg-body: #f8fafc;
+  --bg-surface: #ffffffcc;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --brand: #2563eb;
+  --card: #f1f5f9cc;
+  --border: #e2e8f0;
+}
 
-  <style>
-    :root {
-      --border:#d1fae5; --card:#f0fdf4; --surface:#ffffff;
-      --brand:#059669; --text:#052e24; --text2:#3f7668;
-      --radius:18px; --shadow:0 10px 28px rgba(2,6,23,.10);
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --border:#134e4a; --card:#064e3b; --surface:#021f18;
-        --brand:#34d399; --text:#ecfdf5; --text2:#a7f3d0;
-      }
-      body { background:#011d15; }
-    }
+/* === Modo oscuro automático === */
+html.dark, [data-theme="dark"] {
+  --bg-body: #0b1220;
+  --bg-surface: #1e293b;
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --brand: #60a5fa;
+  --card: #1e293bcc;
+  --border: #334155;
+}
 
-    body {
-      font-family:'Inter',sans-serif;
-      background:#f6fef9;
-      color:var(--text);
-      margin:0;
-    }
+/* === Estilos base === */
+* { -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', ui-sans-serif, system-ui;
+  background: var(--bg-body);
+  color: var(--text-primary);
+  transition: background .3s, color .3s;
+}
 
-    header {
-      position:sticky; top:0; z-index:10;
-      text-align:center;
-      padding:1.5rem 1rem;
-      background:var(--surface);
-      border-bottom:1px solid var(--border);
-      box-shadow:0 8px 16px rgba(2,6,23,.06);
-    }
+/* === Contenedores === */
+.container-bg, .sheet {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
 
-    header h1 {
-      font-size:clamp(1.4rem,4vw,2rem);
-      font-weight:800;
-      color:var(--brand);
-      margin:0;
-    }
-    header p { margin:.4rem 0 0; color:var(--text2); }
+.header-bg {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+}
 
-    main {
-      max-width:900px;
-      margin:2rem auto;
-      padding:0 1rem;
-      display:grid;
-      gap:1rem;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    }
+.row {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  transition: background .25s, box-shadow .25s, border-color .25s;
+}
+.row:hover {
+  box-shadow: 0 10px 28px rgba(2,6,23,.12);
+  transform: translateY(-2px);
+}
+@keyframes pulse-border {
+  0% { box-shadow: 0 0 0 0 rgba(37,99,235,.4); }
+  70% { box-shadow: 0 0 0 10px rgba(37,99,235,0); }
+  100% { box-shadow: 0 0 0 0 rgba(37,99,235,0); }
+}
+.is-current {
+  border-color: var(--brand) !important;
+  animation: pulse-border 1.6s infinite;
+}
 
-    .card {
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:1rem 1.2rem;
-      transition:transform .2s, box-shadow .2s;
-    }
-    .card:hover {
-      transform:translateY(-5px);
-      box-shadow:0 12px 24px rgba(2,6,23,.12);
-    }
-
-    h2 { font-weight:700; font-size:1.1rem; color:var(--text); margin-bottom:.4rem; }
-    p { color:var(--text2); font-size:.9rem; margin:.1rem 0 .6rem; }
-
-    footer {
-      text-align:center;
-      padding:2rem 1rem;
-      font-size:.85rem;
-      color:var(--text2);
-    }
-    footer a {
-      color:var(--brand);
-      font-weight:600;
-      text-decoration:none;
-      margin:0 .5rem;
-    }
-  </style>
+/* === Tipografía y detalles === */
+.title-xl {
+  font-weight: 800;
+  letter-spacing: .04em;
+  font-size: clamp(1.6rem, 4vw + .6rem, 2.4rem);
+}
+.month-title {
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  color: var(--text-primary);
+}
+.sub {
+  color: var(--text-secondary);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-size: .8rem;
+}
+.dates { color: var(--text-secondary); font-size: .9rem; }
+.chip {
+  font-size: .75rem;
+  padding: .35rem .7rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  background: var(--bg-surface);
+  backdrop-filter: blur(6px);
+  transition: all .3s ease;
+}
+.chip.font-semibold { color: var(--brand); border-color: var(--brand); }
+@media (max-width:640px) {
+  .title-xl { font-size: 1.6rem; }
+  .month-title { font-size: 1.2rem; }
+}
+@media print { body { background: #fff; } .sheet { box-shadow: none; } }
+</style>
+<script>
+// Detectar modo oscuro global
+(function() {
+  const theme = localStorage.getItem('theme');
+  if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+  }
+})();
+</script>
 </head>
-
-<body>
-  <header>
-    <h1>Programa de Limpieza</h1>
-    <p>Ver si nos toca la limpieza</p>
+<body class="min-h-screen p-4 sm:p-6">
+<main class="max-w-3xl mx-auto space-y-5">
+  <header class="header-bg container-bg sticky top-0 z-10 px-4 py-4 text-center">
+    <h1 class="title-xl">Programa de Limpieza</h1>
+    <p class="sub">Ver si nos toca la limpieza</p>
   </header>
 
-  <main>
-    <div class="card">
-      <h2>Semana 1</h2>
-      <p><b>Grupo asignado:</b> 1 – Segovia León</p>
-      <p><b>Instructivo:</b> Limpieza general y vidrios del salón</p>
-    </div>
+  <section id="programa" class="grid gap-5"></section>
+</main>
 
-    <div class="card">
-      <h2>Semana 2</h2>
-      <p><b>Grupo asignado:</b> 2 – Salgado Horacio</p>
-      <p><b>Instructivo:</b> Baños, entrada y hall principal</p>
-    </div>
+<script>
+// ========= Configuración =========
+const SECUENCIA = ["Grupos 2–3","Grupos 4–5","Grupos 1–2","Grupos 3–4","Grupos 5–1"];
+const INICIO_SECUENCIA = new Date(2025, 8, 2); // 2-sep-2025 (mes 8)
+const EXCEPCIONES = {
+  "2025-09-09": { label: "ASAMBLEA", skip: true }
+};
+const LIMPIEZA_PROFUNDA = {
+  baseMonth: 9,
+  label: "Limpieza profunda (los lunes) · Cong. Norte Garín"
+};
 
-    <div class="card">
-      <h2>Semana 3</h2>
-      <p><b>Grupo asignado:</b> 3 – Casco Elvio</p>
-      <p><b>Instructivo:</b> Salón principal, ventanas y mobiliario</p>
-    </div>
+// ========= Utilidades =========
+const MES = (d)=>d.toLocaleDateString("es-ES",{month:"long"}).toUpperCase();
+const ymd = (d)=>{ const z=new Date(d); z.setHours(0,0,0,0); return new Date(z.getTime() - z.getTimezoneOffset()*60000).toISOString().slice(0,10); };
+function primerMartes(y,m){ const d=new Date(y,m,1); const delta=(2-d.getDay()+7)%7; d.setDate(1+delta); return d; }
+function martesDelMes(y,m){ const arr=[]; for(let d=primerMartes(y,m); d.getMonth()===m; d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+7)){ arr.push(new Date(d)); } return arr; }
+function lunesDelMes(y,m){ const out=[]; const d=new Date(y,m,1); const delta=(1 - d.getDay() + 7) % 7; d.setDate(1 + delta); while(d.getMonth()===m){ out.push(new Date(d)); d.setDate(d.getDate()+7); } return out; }
+function sabadoDe(tue){ const s=new Date(tue); s.setDate(s.getDate()+4); return s; }
+function indiceParaSemana(tue){ let idx=0, c=new Date(INICIO_SECUENCIA); while(ymd(c)<ymd(tue)){ const ex=EXCEPCIONES[ymd(c)]; if(!(ex && ex.skip)) idx++; c.setDate(c.getDate()+7); } return idx % SECUENCIA.length; }
+function esSemanaActual(tue){ const hoy=new Date(); const m=new Date(tue); m.setHours(0,0,0,0); const s=sabadoDe(tue); s.setHours(23,59,59,999); return hoy>=m && hoy<=s; }
+function esMesLimpiezaProfunda(date){ const m=date.getMonth(); const diff=((m - LIMPIEZA_PROFUNDA.baseMonth)%12 + 12)%12; return diff % 3 === 0; }
 
-    <div class="card">
-      <h2>Semana 4</h2>
-      <p><b>Grupo asignado:</b> 4 – Segovia Lucas</p>
-      <p><b>Instructivo:</b> Zona de plataforma y equipos de sonido</p>
-    </div>
-  </main>
+// ========= Renderizado =========
+function filaHTML(tue){
+  const sat=sabadoDe(tue);
+  const key=ymd(tue);
+  const ex=EXCEPCIONES[key];
+  const actual=esSemanaActual(tue);
 
-  <footer>
-    <a href="https://www.jw.org" target="_blank">Sitio oficial jw.org</a> ·
-    <a href="https://wol.jw.org/es" target="_blank">Biblioteca en línea</a>
-  </footer>
+  const fechas=`
+    <div class="dates">
+      <div>Martes <b>${String(tue.getDate()).padStart(2,"0")}</b></div>
+      <div>Sábado <b>${String(sat.getDate()).padStart(2,"0")}</b></div>
+    </div>`;
+
+  let derecha;
+  if(ex){
+    derecha=`<span class="chip font-bold" style="color:#f87171;border-color:#fca5a5;background:rgba(239,68,68,.1)">${ex.label}</span>`;
+  }else{
+    const asign=SECUENCIA[indiceParaSemana(tue)];
+    derecha=`<span class="chip font-semibold">${asign}</span>`;
+  }
+
+  return `<div class="row p-4 flex items-center justify-between ${actual?'is-current':''}">${fechas}${derecha}</div>`;
+}
+
+function renderMes(fechaMes){
+  const y=fechaMes.getFullYear(), m=fechaMes.getMonth();
+  const tues=martesDelMes(y,m);
+  let reminder='';
+  if(esMesLimpiezaProfunda(fechaMes)){
+    const lunes=lunesDelMes(y,m).map(d=>`<span class="chip" style="border-color:#38bdf8;color:#38bdf8;background:rgba(56,189,248,.1)">Lun ${String(d.getDate()).padStart(2,'0')}</span>`).join(' ');
+    reminder=`
+      <div class="mt-2 space-y-2">
+        <div class="flex justify-center"><span class="chip font-semibold" style="border-color:#38bdf8;color:#38bdf8;background:rgba(56,189,248,.08)">${LIMPIEZA_PROFUNDA.label}</span></div>
+        <div class="flex flex-wrap gap-2 justify-center">${lunes}</div>
+      </div>`;
+  }
+  return `
+    <section class="sheet p-4">
+      <header class="mb-3 text-center">
+        <h2 class="month-title">${MES(fechaMes)}</h2>
+        <p class="sub">Programa de limpieza</p>
+        ${reminder}
+      </header>
+      <div class="grid gap-3">
+        ${tues.map(filaHTML).join("")}
+      </div>
+    </section>`;
+}
+
+(function pintar(){
+  const hoy=new Date();
+  const m1=new Date(hoy.getFullYear(),hoy.getMonth(),1);
+  const m2=new Date(hoy.getFullYear(),hoy.getMonth()+1,1);
+  const cont=document.getElementById("programa");
+  cont.innerHTML=renderMes(m1)+renderMes(m2);
+})();
+</script>
 </body>
 </html>
