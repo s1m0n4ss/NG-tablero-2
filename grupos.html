@@ -1,129 +1,234 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Multimedia y Acomodadores – Congregación Norte Garín</title>
-  <meta name="color-scheme" content="light dark" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1, viewport-fit=cover" />
+  <title>Grupos para el servicio del campo</title>
+  <meta name="theme-color" content="#2563eb" />
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
-
+  <meta name="color-scheme" content="light dark" />
   <style>
-    :root {
-      --border:#d1fae5; --card:#f0fdf4; --surface:#ffffff;
-      --brand:#059669; --text:#052e24; --text2:#3f7668;
-      --radius:18px; --shadow:0 10px 28px rgba(2,6,23,.10);
+    :root{
+      --radius:18px; --shadow:0 10px 28px rgba(2,6,23,.12);
+      --bg-body:#f8fafc; --bg-surface:#ffffffcc; --text-primary:#0f172a; --text-secondary:#475569;
+      --brand:#2563eb; --brand-2:#06b6d4;
+      --card:#f1f5f9cc; --border:#e2e8f0;
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --border:#134e4a; --card:#064e3b; --surface:#021f18;
-        --brand:#34d399; --text:#ecfdf5; --text2:#a7f3d0;
-      }
-      body { background:#011d15; }
-    }
-
-    body {
-      font-family:'Inter',sans-serif;
-      background:#f6fef9;
-      color:var(--text);
-      margin:0;
+    .dark:root{
+      --bg-body:#0b1220; --bg-surface:#111827cc; --text-primary:#e5e7eb; --text-secondary:#9ca3af;
+      --brand:#60a5fa; --brand-2:#22d3ee;
+      --card:#0f172acc; --border:#374151;
     }
 
-    header {
-      position:sticky; top:0; z-index:10;
-      text-align:center;
-      padding:1.5rem 1rem;
-      background:var(--surface);
-      border-bottom:1px solid var(--border);
-      box-shadow:0 8px 16px rgba(2,6,23,.06);
+    *{ -webkit-tap-highlight-color:transparent; }
+    html,body{ height:100%; }
+    body{
+      font-family:'Inter',ui-sans-serif,system-ui;
+      background:var(--bg-body); color:var(--text-primary);
+      transition: background .3s, color .3s;
     }
 
-    header h1 {
-      font-size:clamp(1.4rem,4vw,2rem);
-      font-weight:800;
-      color:var(--brand);
-      margin:0;
-    }
-    header p { margin:.4rem 0 0; color:var(--text2); }
-
-    main {
-      max-width:960px;
-      margin:2rem auto;
-      padding:0 1rem;
-      display:grid;
-      gap:1rem;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    }
-
-    .card {
-      background:var(--card);
+    .container-bg{
+      background:var(--bg-surface);
       border:1px solid var(--border);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
-      padding:1rem 1.2rem;
-      transition:transform .2s, box-shadow .2s;
+      backdrop-filter: blur(12px);
     }
-    .card:hover {
-      transform:translateY(-5px);
-      box-shadow:0 12px 24px rgba(2,6,23,.12);
+    .header-bg{
+      background: linear-gradient(120deg, rgba(99,102,241,.10), rgba(6,182,212,.08)), var(--bg-surface);
+      border-bottom:1px solid var(--border);
+      backdrop-filter: blur(10px);
     }
 
-    h2 { font-weight:700; font-size:1.1rem; color:var(--text); margin-bottom:.4rem; }
-    p { color:var(--text2); font-size:.9rem; margin:.1rem 0 .6rem; }
-
-    footer {
-      text-align:center;
-      padding:2rem 1rem;
-      font-size:.85rem;
-      color:var(--text2);
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:calc(var(--radius) - 6px);
+      box-shadow:0 6px 18px rgba(2,6,23,.08);
+      transition: transform .18s, box-shadow .18s, border-color .25s, background .25s;
     }
-    footer a {
-      color:var(--brand);
-      font-weight:600;
-      text-decoration:none;
-      margin:0 .5rem;
+    .card:hover{ transform: translateY(-2px); box-shadow:0 12px 28px rgba(2,6,23,.14); }
+
+    .title-xl{ font-weight:800; letter-spacing:.04em; font-size:clamp(1.6rem, 4vw + .6rem, 2.4rem); }
+    .hint{ color:var(--text-secondary); }
+    .chip{
+      font-size:.72rem; padding:.35rem .6rem; border-radius:999px;
+      border:1px solid var(--border); color:var(--brand);
+      background: linear-gradient(90deg, rgba(37,99,235,.10), rgba(6,182,212,.08));
+      font-weight:800; letter-spacing:.06em;
+    }
+
+    @media print{
+      body{ background:#fff; }
+      .container-bg{ box-shadow:none; }
+      .card{ box-shadow:none; }
     }
   </style>
+  <script>
+    // Hereda el modo oscuro del tablero (sin toggle aquí)
+    (function(){
+      const saved = localStorage.getItem('theme');
+      if(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)){
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
 </head>
+<body class="min-h-screen p-3 sm:p-6">
+  <main class="container-bg max-w-7xl mx-auto overflow-hidden">
+    <!-- Header -->
+    <header class="header-bg sticky top-0 z-10 px-4 py-4 text-center">
+      <h1 class="title-xl">Grupos para el servicio del campo</h1>
+      <p class="hint">Listado de publicadores asignados a cada grupo</p>
+    </header>
 
-<body>
-  <header>
-    <h1>Multimedia y Acomodadores</h1>
-    <p>Consulta si estás asignado</p>
-  </header>
+    <!-- Grid de grupos -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 p-4">
+      <!-- GRUPO 1 -->
+      <article class="card p-4">
+        <div class="flex items-center justify-between mb-3">
+          <span class="chip tracking-wide">GRUPO 1</span>
+          <span class="text-xs hint">Publicadores: <b>16</b></span>
+        </div>
+        <h3 class="text-base font-extrabold leading-tight">SEGOVIA LEON</h3>
+        <p class="text-sm -mt-0.5 font-semibold" style="color:var(--brand)">SOZOÑIUK CARLOS</p>
+        <ul class="mt-3 divide-y" style="border-color:var(--border)">
+          <li class="py-1.5 text-sm">Becerra Nely</li>
+          <li class="py-1.5 text-sm">Benítez Elida</li>
+          <li class="py-1.5 text-sm">Céspedes Ángela</li>
+          <li class="py-1.5 text-sm">Ducoli Gustavo</li>
+          <li class="py-1.5 text-sm">Ducoli Teodora</li>
+          <li class="py-1.5 text-sm">Harlos Morelia</li>
+          <li class="py-1.5 text-sm">Iniazzoto Antonio</li>
+          <li class="py-1.5 text-sm">Quaranta Daniel</li>
+          <li class="py-1.5 text-sm">Quaranta Graciela</li>
+          <li class="py-1.5 text-sm">Ramírez Julio</li>
+          <li class="py-1.5 text-sm">Sarraute Diego</li>
+          <li class="py-1.5 text-sm">Sarraute Micaela</li>
+          <li class="py-1.5 text-sm">Segovia Mirta</li>
+          <li class="py-1.5 text-sm">Vera Alicia</li>
+        </ul>
+      </article>
 
-  <main>
-    <div class="card">
-      <h2>Semana 1</h2>
-      <p><b>Audio:</b> Marcos Duarte</p>
-      <p><b>Video:</b> Horacio Salgado</p>
-      <p><b>Acomodadores:</b> Gustavo Ducoli y Daniel Quaranta</p>
-    </div>
+      <!-- GRUPO 2 -->
+      <article class="card p-4">
+        <div class="flex items-center justify-between mb-3">
+          <span class="chip tracking-wide">GRUPO 2</span>
+          <span class="text-xs hint">Publicadores: <b>18</b></span>
+        </div>
+        <h3 class="text-base font-extrabold leading-tight">SALGADO HORACIO</h3>
+        <p class="text-sm -mt-0.5 font-semibold" style="color:var(--brand)">ROJAS MARCELO</p>
+        <ul class="mt-3 divide-y" style="border-color:var(--border)">
+          <li class="py-1.5 text-sm">Casas Carmen</li>
+          <li class="py-1.5 text-sm">Coria Elías</li>
+          <li class="py-1.5 text-sm">Coria Sara</li>
+          <li class="py-1.5 text-sm">Feril Manuel</li>
+          <li class="py-1.5 text-sm">Feril Paola</li>
+          <li class="py-1.5 text-sm">Humancondor Martina</li>
+          <li class="py-1.5 text-sm">Laurente Paulina</li>
+          <li class="py-1.5 text-sm">Leiva Guillermina</li>
+          <li class="py-1.5 text-sm">Palacios Bibiana</li>
+          <li class="py-1.5 text-sm">Palavecino Héctor</li>
+          <li class="py-1.5 text-sm">Palavecino Roxana</li>
+          <li class="py-1.5 text-sm">Rojas Rosa</li>
+          <li class="py-1.5 text-sm">Salgado Sabrina</li>
+          <li class="py-1.5 text-sm">Sánchez Alicia</li>
+          <li class="py-1.5 text-sm">Talarico Doris</li>
+          <li class="py-1.5 text-sm">Villantoy Fany</li>
+        </ul>
+      </article>
 
-    <div class="card">
-      <h2>Semana 2</h2>
-      <p><b>Audio:</b> Caetano Ferrari</p>
-      <p><b>Video:</b> Lucas Segovia</p>
-      <p><b>Acomodadores:</b> Micaela Sarraute y Elvio Casco</p>
-    </div>
+      <!-- GRUPO 3 -->
+      <article class="card p-4">
+        <div class="flex items-center justify-between mb-3">
+          <span class="chip tracking-wide">GRUPO 3</span>
+          <span class="text-xs hint">Publicadores: <b>18</b></span>
+        </div>
+        <h3 class="text-base font-extrabold leading-tight">CASCO ELVIO</h3>
+        <p class="text-sm -mt-0.5 font-semibold" style="color:var(--brand)">CORTEZ DARÍO</p>
+        <ul class="mt-3 divide-y" style="border-color:var(--border)">
+          <li class="py-1.5 text-sm">Cansino León</li>
+          <li class="py-1.5 text-sm">Cansino Lidia</li>
+          <li class="py-1.5 text-sm">Cansino Silvia</li>
+          <li class="py-1.5 text-sm">Casco Mónica</li>
+          <li class="py-1.5 text-sm">Flores Calixto</li>
+          <li class="py-1.5 text-sm">Flores Elvira</li>
+          <li class="py-1.5 text-sm">Godoy Cintia</li>
+          <li class="py-1.5 text-sm">Godoy Facundo</li>
+          <li class="py-1.5 text-sm">Gómez Mirian</li>
+          <li class="py-1.5 text-sm">González Graciela</li>
+          <li class="py-1.5 text-sm">Miño Guillermo</li>
+          <li class="py-1.5 text-sm">Miño Mabel</li>
+          <li class="py-1.5 text-sm">Natalé Tamara</li>
+          <li class="py-1.5 text-sm">Zúñiga Mabel</li>
+          <li class="py-1.5 text-sm">Zúñiga Pablo</li>
+          <li class="py-1.5 text-sm">Zúñiga Sofía</li>
+        </ul>
+      </article>
 
-    <div class="card">
-      <h2>Semana 3</h2>
-      <p><b>Audio:</b> Daniel Albis</p>
-      <p><b>Video:</b> Mario Segovia</p>
-      <p><b>Acomodadores:</b> Julio Ramírez y Carlos Sozoñiuk</p>
-    </div>
+      <!-- GRUPO 4 -->
+      <article class="card p-4">
+        <div class="flex items-center justify-between mb-3">
+          <span class="chip tracking-wide">GRUPO 4</span>
+          <span class="text-xs hint">Publicadores: <b>15</b></span>
+        </div>
+        <h3 class="text-base font-extrabold leading-tight">SEGOVIA LUCAS</h3>
+        <p class="text-sm -mt-0.5 font-semibold" style="color:var(--brand)">SEGOVIA MARIO</p>
+        <ul class="mt-3 divide-y" style="border-color:var(--border)">
+          <li class="py-1.5 text-sm">Cansino José</li>
+          <li class="py-1.5 text-sm">Cansino Lola</li>
+          <li class="py-1.5 text-sm">Cha Elena</li>
+          <li class="py-1.5 text-sm">Collado Daniel</li>
+          <li class="py-1.5 text-sm">Humancondor Danter</li>
+          <li class="py-1.5 text-sm">Meza Sebastián</li>
+          <li class="py-1.5 text-sm">Palladino Federico</li>
+          <li class="py-1.5 text-sm">Salcedo Agustina</li>
+          <li class="py-1.5 text-sm">Salcedo Martina</li>
+          <li class="py-1.5 text-sm">Sánchez Juan Carlos</li>
+          <li class="py-1.5 text-sm">Scotti Norma</li>
+          <li class="py-1.5 text-sm">Segovia Cintia</li>
+          <li class="py-1.5 text-sm">Segovia Cristian</li>
+        </ul>
+      </article>
 
-    <div class="card">
-      <h2>Semana 4</h2>
-      <p><b>Audio:</b> Adolfo Gutiérrez</p>
-      <p><b>Video:</b> Ariel Coria</p>
-      <p><b>Acomodadores:</b> Diego Sarraute y Sebastián Meza</p>
-    </div>
+      <!-- GRUPO 5 -->
+      <article class="card p-4">
+        <div class="flex items-center justify-between mb-3">
+          <span class="chip tracking-wide">GRUPO 5</span>
+          <span class="text-xs hint">Publicadores: <b>16</b></span>
+        </div>
+        <h3 class="text-base font-extrabold leading-tight">GUTIÉRREZ ADOLFO</h3>
+        <p class="text-sm -mt-0.5 font-semibold" style="color:var(--brand)">ALBIS DANIEL</p>
+        <ul class="mt-3 divide-y" style="border-color:var(--border)">
+          <li class="py-1.5 text-sm">Araoz Francisco</li>
+          <li class="py-1.5 text-sm">Araoz Susana</li>
+          <li class="py-1.5 text-sm">Arguello Florencia</li>
+          <li class="py-1.5 text-sm">Durán Benjamín</li>
+          <li class="py-1.5 text-sm">Durán Lucinda</li>
+          <li class="py-1.5 text-sm">Durán Samuel</li>
+          <li class="py-1.5 text-sm">Ferrari Caetano</li>
+          <li class="py-1.5 text-sm">Galeano Franco</li>
+          <li class="py-1.5 text-sm">Galeano Lucas</li>
+          <li class="py-1.5 text-sm">Galeano Pablo</li>
+          <li class="py-1.5 text-sm">Galeano Yanina</li>
+          <li class="py-1.5 text-sm">Gualmes Rocío</li>
+          <li class="py-1.5 text-sm">Gutiérrez Andrea</li>
+          <li class="py-1.5 text-sm">Leal Cecilia</li>
+        </ul>
+      </article>
+    </section>
   </main>
 
-  <footer>
-    <a href="https://www.jw.org" target="_blank">Sitio oficial jw.org</a> ·
-    <a href="https://wol.jw.org/es" target="_blank">Biblioteca en línea</a>
-  </footer>
+  <script>
+    // Heredar modo oscuro del tablero
+    (function(){
+      const saved = localStorage.getItem('theme');
+      if(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)){
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
 </body>
 </html>
