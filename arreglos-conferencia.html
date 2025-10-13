@@ -8,90 +8,131 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
 
   <style>
-    :root {
-      --ng-border:#d1fae5; --ng-card:#f0fdf4; --ng-surface:#ffffff;
-      --ng-brand:#059669; --ng-text:#052e24; --ng-text2:#3f7668;
-      --ng-radius:18px; --ng-shadow:0 10px 28px rgba(2,6,23,.10);
+    /* ===== Paleta Zafiro–Cian con modo oscuro ===== */
+    :root{
+      --radius:18px; --shadow:0 10px 28px rgba(2,6,23,.12);
+      --bg-body:#0b1220;            /* fondo general del tablero en oscuro */
+      --surface:#ffffffcc;          /* vidrio claro */
+      --text:#0f172a;
+      --muted:#475569;
+      --brand:#2563eb;              /* zafiro */
+      --brand-2:#06b6d4;            /* cian */
+      --card:#f1f5f9cc;             /* tarjeta translúcida */
+      --border:#e2e8f0;
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --ng-border:#134e4a; --ng-card:#064e3b; --ng-surface:#052e24;
-        --ng-brand:#34d399; --ng-text:#f0fdf4; --ng-text2:#a7f3d0;
-      }
-      body { background:#021f18; }
+    .dark:root{
+      --bg-body:#0b1220;
+      --surface:#111827cc;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --brand:#60a5fa;
+      --brand-2:#22d3ee;
+      --card:#0f172acc;
+      --border:#374151;
     }
 
-    body {
-      font-family:'Inter',ui-sans-serif,system-ui;
-      background:#f6fef9;
-      color:var(--ng-text);
-      margin:0;
-    }
+    /* ===== Base ===== */
+    .ng-body { font-family:'Inter',ui-sans-serif,system-ui; background:var(--bg-body); color:var(--text); margin:0; transition:background .3s,color .3s; }
     .ng-container { max-width:1024px; margin:auto; }
     .ng-grid { display:grid; grid-template-columns:1fr; gap:1rem; padding:1rem; }
     @media (min-width:768px){ .ng-grid{ grid-template-columns:1fr 1fr; } }
 
-    .ng-surface{ background:var(--ng-surface); border:1px solid var(--ng-border); border-radius:var(--ng-radius); box-shadow:var(--ng-shadow); }
-    .ng-card{ background:var(--ng-card); border:1px solid var(--ng-border); border-radius:calc(var(--ng-radius)-6px); box-shadow:0 6px 18px rgba(2,6,23,.06); }
-    .ng-title-xl{ font-weight:800; letter-spacing:.04em; font-size:clamp(1.6rem,4vw + .6rem,2.4rem); }
-    .ng-name-lg{ font-weight:700; font-size:clamp(1.05rem,2.4vw + .6rem,1.4rem); }
-    .ng-hint{ color:var(--ng-text2); font-size:.9rem; }
+    .ng-surface{
+      background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+      box-shadow:var(--shadow); backdrop-filter: blur(12px);
+    }
+    .ng-card{
+      background:var(--card); border:1px solid var(--border);
+      border-radius:calc(var(--radius)-6px); box-shadow:0 6px 18px rgba(2,6,23,.08);
+      transition: transform .18s, box-shadow .18s, border-color .25s, background .25s;
+    }
+    .ng-card:hover{ transform: translateY(-2px); box-shadow:0 12px 28px rgba(2,6,23,.14); }
 
+    .ng-title-xl{ font-weight:800; letter-spacing:.04em; font-size:clamp(1.6rem,4vw + .6rem,2.4rem); }
+    .ng-name-lg{ font-weight:700; font-size:clamp(1.05rem,2.4vw + .6rem,1.35rem); }
+    .ng-hint{ color:var(--muted); font-size:.92rem; }
+
+    /* ===== Banner fijo translúcido ===== */
     .ng-banner{
       position:fixed; top:12px; left:50%; transform:translateX(-50%);
-      z-index:9999; width:min(620px,calc(100% - 24px));
-      text-align:center; background:rgba(255,255,255,.66);
-      border:1px solid rgba(209,250,229,.85);
-      border-radius:28px; box-shadow:0 22px 48px rgba(2,6,23,.18),0 6px 16px rgba(2,6,23,.10);
-      padding:.9rem 1.4rem;
-      -webkit-backdrop-filter:saturate(180%) blur(10px);
-      backdrop-filter:saturate(180%) blur(10px);
-    }
-    @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
-      .ng-banner{ background:rgba(255,255,255,.92); }
+      z-index:50; width:min(680px,calc(100% - 24px));
+      text-align:center; background:linear-gradient(120deg, rgba(99,102,241,.12), rgba(34,211,238,.10)), var(--surface);
+      border:1px solid var(--border);
+      border-radius:28px; box-shadow:0 22px 48px rgba(2,6,23,.22),0 6px 16px rgba(2,6,23,.12);
+      padding:.9rem 1.4rem; -webkit-backdrop-filter:saturate(160%) blur(10px); backdrop-filter:saturate(160%) blur(10px);
     }
     .ng-banner-title{
       margin:0; font-weight:900; text-transform:uppercase; letter-spacing:.08em;
-      font-size:clamp(1.1rem,3vw,1.6rem); color:var(--ng-brand); line-height:1.15;
+      font-size:clamp(1.1rem,3vw,1.6rem); color:var(--brand); line-height:1.15;
+      text-shadow:0 1px 0 rgba(255,255,255,.25);
     }
+    .dark .ng-banner-title{ text-shadow:none; }
+
     .ng-content{ padding-top:100px; }
 
+    /* ===== Encabezados de mes ===== */
+    .ng-month-head{ padding:16px; border-bottom:1px solid var(--border);
+      background:linear-gradient(120deg, rgba(99,102,241,.10), rgba(6,182,212,.08)), transparent; }
+
+    /* ===== Parpadeo sutil para próxima fecha ===== */
     @keyframes ng-blink {
-      0%,100% { box-shadow:0 0 0 0 rgba(5,150,105,0.0); }
-      50%     { box-shadow:0 0 0 6px rgba(5,150,105,0.15); }
+      0%,100% { box-shadow:0 0 0 0 rgba(37,99,235,0.0); }
+      50%     { box-shadow:0 0 0 10px rgba(37,99,235,0.20); }
     }
-    .ng-next {
-      border-color:var(--ng-brand)!important;
-      animation:ng-blink 2.5s infinite ease-in-out;
+    .ng-next { border-color:var(--brand)!important; animation:ng-blink 2.2s infinite ease-in-out; }
+
+    /* ===== Chips circulares “salen” ===== */
+    .ng-chip-day{
+      width:40px;height:40px;border-radius:999px;display:grid;place-items:center;
+      background:var(--surface); border:1px solid var(--border); font-weight:800;
+    }
+
+    @media print{
+      .ng-banner{ display:none; }
+      .ng-body{ background:#fff; }
+      .ng-surface,.ng-card{ box-shadow:none; }
     }
   </style>
-</head>
-<body>
 
+  <script>
+    // Hereda modo oscuro del tablero (sin toggle aquí)
+    (function(){
+      const saved = localStorage.getItem('theme');
+      if(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)){
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+</head>
+<body class="ng-body">
+
+  <!-- 🟦 Banner -->
   <div class="ng-banner" role="banner">
     <span class="ng-banner-title">Arreglos de conferencia</span>
   </div>
 
   <div class="ng-content">
     <main class="ng-container ng-grid">
+      <!-- Octubre -->
       <section class="ng-surface">
-        <header style="padding:16px;border-bottom:1px solid var(--ng-border)">
+        <header class="ng-month-head">
           <h2 class="ng-title-xl">Octubre</h2>
         </header>
         <div style="padding:16px"><div id="cards-oct" style="display:grid;gap:12px"></div></div>
         <div style="padding:0 16px 20px">
-          <h3 style="font-weight:800;color:var(--ng-brand)">Salen este mes</h3>
+          <h3 style="font-weight:800;color:var(--brand)">Salen este mes</h3>
           <div id="salen-oct" style="display:grid;gap:12px"></div>
         </div>
       </section>
 
+      <!-- Noviembre -->
       <section class="ng-surface">
-        <header style="padding:16px;border-bottom:1px solid var(--ng-border)">
+        <header class="ng-month-head">
           <h2 class="ng-title-xl">Noviembre</h2>
         </header>
         <div style="padding:16px"><div id="cards-nov" style="display:grid;gap:12px"></div></div>
         <div style="padding:0 16px 20px">
-          <h3 style="font-weight:800;color:var(--ng-brand)">Salen este mes</h3>
+          <h3 style="font-weight:800;color:var(--brand)">Salen este mes</h3>
           <div id="salen-nov" style="display:grid;gap:12px"></div>
         </div>
       </section>
@@ -101,7 +142,7 @@
   <script>
     const arreglosOct = [
       {day:'Sábado',date:'04',time:'19:30',title:'Ayuda práctica para las familias',speaker:'Mauricio Mena',congregation:'Norte, Benavídez, B.A.',chairman:'Marcelo Rojas'},
-      {day:'Sábado',date:'11',time:'19:30',title:'Cómo sentirse seguro en este mundo turbulento',speaker:'Ariel Coria',congregation:'Norte Benavídez',chairman:'Caetano Ferrari'},
+      {day:'Sábado',date:'11',time:'19:30',title:'Como sentirse seguro en este mundo turbulento',speaker:'Ariel Coria',congregation:'Norte Benavídez',chairman:'Caetano Ferrari'},
       {day:'Sábado',date:'18',time:'19:30',title:'¿Qué es la verdadera fe, y cómo se demuestra?',speaker:'Gabriel Fernández',congregation:'Norte, Buenos Aires Inglés',chairman:'Mario Segovia'},
       {day:'Sábado',date:'25',time:'19:30',title:'Cómo enfrentarse a las inquietudes de la vida',speaker:'Ademar Pérez',congregation:'Norte, Benavídez, B.A.',chairman:'Daniel Albis'}
     ];
@@ -124,25 +165,28 @@
       {name:'Daniel Albis',day:'Domingo',date:'30'}
     ];
 
+    // === Render y resaltado automático de próxima conferencia ===
     function render(cardsId, salenId, arr, sal, monthIndex){
       const today = new Date();
       const year = today.getFullYear();
+
       let nextIndex = -1;
       for(let i=0;i<arr.length;i++){
-        const d = new Date(year, monthIndex, parseInt(arr[i].date));
-        if(d >= today){ nextIndex = i; break; }
+        const d = new Date(year, monthIndex, parseInt(arr[i].date,10));
+        if(d >= new Date(today.getFullYear(), today.getMonth(), today.getDate())){ nextIndex = i; break; }
       }
+
       const cards = arr.map((x,idx)=>`
-        <article class="ng-card ${idx===nextIndex?'ng-next':''}" style="padding:16px" tabindex="0">
+        <article class="ng-card ${idx===nextIndex?'ng-next':''}" style="padding:16px" tabindex="0" aria-label="${x.day} ${x.date} ${x.time} – ${x.title}">
           <div style="display:flex;gap:16px;align-items:flex-start;">
-            <div style="flex-shrink:0;font-weight:800;font-size:48px;line-height:1;color:var(--ng-brand);">${x.date}</div>
+            <div style="flex-shrink:0;font-weight:900;font-size:48px;line-height:1;color:var(--brand);">${x.date}</div>
             <div style="flex:1;">
               <h3 class="ng-name-lg" style="margin:0 0 6px;">${x.title}</h3>
-              <p class="ng-hint"><b>Conferenciante:</b> ${x.speaker}</p>
-              <p class="ng-hint"><b>Congregación:</b> ${x.congregation}</p>
-              <p class="ng-hint"><b>Presidente:</b> ${x.chairman}</p>
-              <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--ng-border);">
-                <p class="ng-hint"><b>Fecha y hora:</b> ${x.day}, ${x.date}, ${x.time}</p>
+              <p class="ng-hint" style="margin:0 0 4px;"><b>Conferenciante:</b> ${x.speaker}</p>
+              <p class="ng-hint" style="margin:0 0 4px;"><b>Congregación:</b> ${x.congregation}</p>
+              <p class="ng-hint" style="margin:0 0 4px;"><b>Presidente:</b> ${x.chairman}</p>
+              <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">
+                <p class="ng-hint" style="margin:0;"><b>Fecha y hora:</b> ${x.day}, ${x.date}, ${x.time}</p>
               </div>
             </div>
           </div>
@@ -151,17 +195,16 @@
 
       const salenHtml = sal.map(s=>`
         <div class="ng-card" style="padding:12px;display:flex;gap:12px;align-items:flex-start;">
-          <div style="width:40px;height:40px;border-radius:999px;display:grid;place-items:center;background:#fff;border:1px solid var(--ng-border);">
-            <span style="font-weight:800">${s.date}</span>
-          </div>
+          <div class="ng-chip-day"><span>${s.date}</span></div>
           <div>
-            <p style="margin:0;font-weight:600;color:var(--ng-text)">${s.name}</p>
+            <p style="margin:0;font-weight:700;">${s.name}</p>
             <p class="ng-hint" style="margin:2px 0 0;">${s.day} ${s.date}</p>
           </div>
         </div>`).join('');
       document.getElementById(salenId).innerHTML = salenHtml;
     }
 
+    // Octubre (monthIndex = 9) y Noviembre (10)
     render('cards-oct','salen-oct',arreglosOct,salenOct,9);
     render('cards-nov','salen-nov',arreglosNov,salenNov,10);
   </script>
