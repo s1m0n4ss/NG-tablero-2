@@ -42,4 +42,128 @@
       z-index:9999; width:min(620px,calc(100% - 24px));
       text-align:center; background:rgba(255,255,255,.66);
       border:1px solid rgba(209,250,229,.85);
-      border-radius:28px; box-shadow:0 22px 48px rgba(2,6,23,.18),0 6px 16px rg
+      border-radius:28px; box-shadow:0 22px 48px rgba(2,6,23,.18),0 6px 16px rgba(2,6,23,.10);
+      padding:.9rem 1.4rem;
+      -webkit-backdrop-filter:saturate(180%) blur(10px);
+      backdrop-filter:saturate(180%) blur(10px);
+    }
+    @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
+      .ng-banner{ background:rgba(255,255,255,.92); }
+    }
+    .ng-banner-title{
+      margin:0; font-weight:900; text-transform:uppercase; letter-spacing:.08em;
+      font-size:clamp(1.1rem,3vw,1.6rem); color:var(--ng-brand); line-height:1.15;
+    }
+    .ng-content{ padding-top:100px; }
+
+    @keyframes ng-blink {
+      0%,100% { box-shadow:0 0 0 0 rgba(5,150,105,0.0); }
+      50%     { box-shadow:0 0 0 6px rgba(5,150,105,0.15); }
+    }
+    .ng-next {
+      border-color:var(--ng-brand)!important;
+      animation:ng-blink 2.5s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ng-banner" role="banner">
+    <span class="ng-banner-title">Arreglos de conferencia</span>
+  </div>
+
+  <div class="ng-content">
+    <main class="ng-container ng-grid">
+      <section class="ng-surface">
+        <header style="padding:16px;border-bottom:1px solid var(--ng-border)">
+          <h2 class="ng-title-xl">Octubre</h2>
+        </header>
+        <div style="padding:16px"><div id="cards-oct" style="display:grid;gap:12px"></div></div>
+        <div style="padding:0 16px 20px">
+          <h3 style="font-weight:800;color:var(--ng-brand)">Salen este mes</h3>
+          <div id="salen-oct" style="display:grid;gap:12px"></div>
+        </div>
+      </section>
+
+      <section class="ng-surface">
+        <header style="padding:16px;border-bottom:1px solid var(--ng-border)">
+          <h2 class="ng-title-xl">Noviembre</h2>
+        </header>
+        <div style="padding:16px"><div id="cards-nov" style="display:grid;gap:12px"></div></div>
+        <div style="padding:0 16px 20px">
+          <h3 style="font-weight:800;color:var(--ng-brand)">Salen este mes</h3>
+          <div id="salen-nov" style="display:grid;gap:12px"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const arreglosOct = [
+      {day:'Sábado',date:'04',time:'19:30',title:'Ayuda práctica para las familias',speaker:'Mauricio Mena',congregation:'Norte, Benavídez, B.A.',chairman:'Marcelo Rojas'},
+      {day:'Sábado',date:'11',time:'19:30',title:'Cómo sentirse seguro en este mundo turbulento',speaker:'Ariel Coria',congregation:'Norte Benavídez',chairman:'Caetano Ferrari'},
+      {day:'Sábado',date:'18',time:'19:30',title:'¿Qué es la verdadera fe, y cómo se demuestra?',speaker:'Gabriel Fernández',congregation:'Norte, Buenos Aires Inglés',chairman:'Mario Segovia'},
+      {day:'Sábado',date:'25',time:'19:30',title:'Cómo enfrentarse a las inquietudes de la vida',speaker:'Ademar Pérez',congregation:'Norte, Benavídez, B.A.',chairman:'Daniel Albis'}
+    ];
+    const salenOct = [
+      {day:'Domingo',date:'05',name:'Mario Segovia'},
+      {day:'Domingo',date:'12',name:'Adolfo Gutiérrez'},
+      {day:'Domingo',date:'26',name:'Lucas Segovia'}
+    ];
+    const arreglosNov = [
+      {day:'Sábado',date:'01',time:'19:30',title:'Mantengamos nuestra confianza fuerte hasta el fin',speaker:'Esteban Bandura',congregation:'Norte, General Pacheco, B.A.',chairman:'León Segovia'},
+      {day:'Sábado',date:'08',time:'19:30',title:'Confiemos en el Dios de todo consuelo',speaker:'Leonardo Domínguez',congregation:'Merlo Lengua de Señas, B.A.',chairman:'Lucas Segovia'},
+      {day:'Sábado',date:'15',time:'19:30',title:'Qué aprendemos del diluvio universal',speaker:'Jorge Iozzolino',congregation:'Bo. San Fernando, José C. Paz, B.A.',chairman:'Darío Cortez'},
+      {day:'Sábado',date:'22',time:'19:30',title:'“Sigan […] perdonándose con generosidad”',speaker:'Marcelo Vallejos',congregation:'Bo. San Fernando, José C. Paz, B.A.',chairman:'Adolfo Gutiérrez'},
+      {day:'Sábado',date:'29',time:'19:30',title:'Jehová está pendiente de nosotros',speaker:'Juan Miño',congregation:'Bo. San Fernando, José C. Paz, B.A.',chairman:'Horacio Salgado'}
+    ];
+    const salenNov = [
+      {name:'Marcelo Rojas',day:'Domingo',date:'09'},
+      {name:'León Segovia',day:'Domingo',date:'16'},
+      {name:'Elvio Casco',day:'Domingo',date:'23'},
+      {name:'Daniel Albis',day:'Domingo',date:'30'}
+    ];
+
+    function render(cardsId, salenId, arr, sal, monthIndex){
+      const today = new Date();
+      const year = today.getFullYear();
+      let nextIndex = -1;
+      for(let i=0;i<arr.length;i++){
+        const d = new Date(year, monthIndex, parseInt(arr[i].date));
+        if(d >= today){ nextIndex = i; break; }
+      }
+      const cards = arr.map((x,idx)=>`
+        <article class="ng-card ${idx===nextIndex?'ng-next':''}" style="padding:16px" tabindex="0">
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <div style="flex-shrink:0;font-weight:800;font-size:48px;line-height:1;color:var(--ng-brand);">${x.date}</div>
+            <div style="flex:1;">
+              <h3 class="ng-name-lg" style="margin:0 0 6px;">${x.title}</h3>
+              <p class="ng-hint"><b>Conferenciante:</b> ${x.speaker}</p>
+              <p class="ng-hint"><b>Congregación:</b> ${x.congregation}</p>
+              <p class="ng-hint"><b>Presidente:</b> ${x.chairman}</p>
+              <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--ng-border);">
+                <p class="ng-hint"><b>Fecha y hora:</b> ${x.day}, ${x.date}, ${x.time}</p>
+              </div>
+            </div>
+          </div>
+        </article>`).join('');
+      document.getElementById(cardsId).innerHTML = cards;
+
+      const salenHtml = sal.map(s=>`
+        <div class="ng-card" style="padding:12px;display:flex;gap:12px;align-items:flex-start;">
+          <div style="width:40px;height:40px;border-radius:999px;display:grid;place-items:center;background:#fff;border:1px solid var(--ng-border);">
+            <span style="font-weight:800">${s.date}</span>
+          </div>
+          <div>
+            <p style="margin:0;font-weight:600;color:var(--ng-text)">${s.name}</p>
+            <p class="ng-hint" style="margin:2px 0 0;">${s.day} ${s.date}</p>
+          </div>
+        </div>`).join('');
+      document.getElementById(salenId).innerHTML = salenHtml;
+    }
+
+    render('cards-oct','salen-oct',arreglosOct,salenOct,9);
+    render('cards-nov','salen-nov',arreglosNov,salenNov,10);
+  </script>
+</body>
+</html>
