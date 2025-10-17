@@ -14,7 +14,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
 
   <script>
-    // Tailwind config
     tailwind.config = {
       theme: {
         extend: {
@@ -43,7 +42,7 @@
       background:
         radial-gradient(1200px 600px at 10% -10%, rgba(34,211,238,.18), transparent 60%),
         radial-gradient(1000px 500px at 110% 10%, rgba(99,102,241,.18), transparent 65%),
-        #0f172a; /* slate-900 fallback para el gradiente */
+        #0f172a;
     }
     .page {
       background:
@@ -54,47 +53,26 @@
     }
     .dark .page{ background-color:#0f172a; }
 
-    /* Header glass */
-    .glass {
-      backdrop-filter: saturate(160%) blur(12px);
-      -webkit-backdrop-filter: saturate(160%) blur(12px);
-    }
+    .glass { backdrop-filter:saturate(160%) blur(12px); -webkit-backdrop-filter:saturate(160%) blur(12px); }
 
-    /* Tarjeta: efecto tilt + brillo */
-    .card {
-      transform-style: preserve-3d;
-      transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
-      will-change: transform;
-    }
-    .card:hover{ box-shadow: var(--tw-shadow, 0 0 #0000), 0 20px 40px rgba(2,6,23,.20); }
+    .card{ transform-style:preserve-3d; transition:transform .25s, box-shadow .25s, background .25s; will-change:transform; }
+    .card:hover{ box-shadow: var(--tw-shadow,0 0 #0000), 0 20px 40px rgba(2,6,23,.20); }
     .shine::before{
-      content:"";
-      position:absolute; inset:-1px;
-      background: radial-gradient(600px 200px at var(--mx, 50%) var(--my, 0%), rgba(255,255,255,.28), transparent 60%);
-      border-radius: inherit;
-      pointer-events: none;
-      transition: opacity .25s ease;
-      opacity: .0;
+      content:""; position:absolute; inset:-1px; background:radial-gradient(600px 200px at var(--mx,50%) var(--my,0%), rgba(255,255,255,.28), transparent 60%);
+      border-radius:inherit; pointer-events:none; transition:opacity .25s; opacity:.0;
     }
     .card:hover .shine::before{ opacity:.9; }
 
-    /* Botón con efecto ripple */
-    .ripple { position: relative; overflow: hidden; isolation: isolate; }
-    @media (prefers-reduced-motion: reduce){
-      .card, .shine::before{ transition: none!important; }
-    }
+    .ripple{ position:relative; overflow:hidden; isolation:isolate; }
+    @media (prefers-reduced-motion: reduce){ .card, .shine::before{ transition:none!important; } }
 
-    /* Toggle tema */
     .theme-toggle{
-      position:absolute; right:1rem; top:1rem;
-      width:42px; height:42px; border-radius:9999px;
-      background:rgba(255,255,255,.28);
-      display:grid; place-items:center;
-      backdrop-filter:blur(6px);
+      position:absolute; right:1rem; top:1rem; width:42px; height:42px; border-radius:9999px;
+      background:rgba(255,255,255,.28); display:grid; place-items:center; backdrop-filter:blur(6px);
       transition:background .2s, transform .2s;
     }
     .theme-toggle:hover{ background:rgba(255,255,255,.38); transform: translateY(-1px); }
-    .theme-toggle svg{ width:20px; height:20px; color:white; transition: transform .35s ease; }
+    .theme-toggle svg{ width:20px; height:20px; color:white; transition: transform .35s; }
     .dark .theme-toggle svg{ transform: rotate(180deg); }
   </style>
 </head>
@@ -109,7 +87,6 @@
             <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight drop-shadow">Tablero digital</h1>
             <p class="mt-2 text-brand-50/90 text-base sm:text-lg">Congregación Norte Garín</p>
           </div>
-          <!-- Toggle claro/oscuro (solo en principal) -->
           <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar modo">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -123,14 +100,12 @@
     <!-- GRID -->
     <main class="mx-auto max-w-6xl px-4 sm:px-6 pb-14">
       <div class="grid gap-6 md:grid-cols-2">
-        <!-- 1. Salidas a predicar (LINK a /salidas.html) -->
+        <!-- 1. Salidas a predicar -->
         <a href="salidas.html" class="group relative" title="Abrir Salidas a predicar">
           <div class="card relative rounded-2xl bg-white/90 dark:bg-white/10 shadow-card ring-1 ring-brand-200/60 dark:ring-white/10 hover:ring-brand-400">
             <div class="shine absolute inset-0 rounded-2xl"></div>
             <div class="flex items-start gap-4 p-5">
-              <!-- icon -->
               <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700 dark:bg-white/10 dark:text-brand-200 shadow-inner">
-                <!-- suitcase -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
                         d="M9 7V6a2 2 0 012-2h2a2 2 0 012 2v1m-8 0h8m-9 4h10m-10 6h10M4 9a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V9z"/>
@@ -148,13 +123,12 @@
           </div>
         </a>
 
-        <!-- 2 -->
-        <a href="#" class="group relative">
+        <!-- 2 Vida y Ministerio -->
+        <a href="vida-y-ministerio.html" class="group relative">
           <div class="card relative rounded-2xl bg-white/90 dark:bg-white/10 shadow-card ring-1 ring-brand-200/60 dark:ring-white/10 hover:ring-brand-400">
             <div class="shine absolute inset-0 rounded-2xl"></div>
             <div class="flex items-start gap-4 p-5">
               <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700 dark:bg-white/10 dark:text-brand-200 shadow-inner">
-                <!-- clipboard -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
                         d="M9 5h6m-6 0a2 2 0 00-2 2v0a2 2 0 002 2h6a2 2 0 002-2v0a2 2 0 00-2-2m-6 0V4a2 2 0 012-2h2a2 2 0 012 2v1M7 11h10M7 15h10M7 19h6"/>
@@ -171,13 +145,12 @@
           </div>
         </a>
 
-        <!-- 3 -->
-        <a href="#" class="group relative">
+        <!-- 3 Discursos públicos -->
+        <a href="arreglos-conferencia.html" class="group relative">
           <div class="card relative rounded-2xl bg-white/90 dark:bg-white/10 shadow-card ring-1 ring-brand-200/60 dark:ring-white/10 hover:ring-brand-400">
             <div class="shine absolute inset-0 rounded-2xl"></div>
             <div class="flex items-start gap-4 p-5">
               <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700 dark:bg-white/10 dark:text-brand-200 shadow-inner">
-                <!-- microphone -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
                         d="M12 3a3 3 0 00-3 3v5a3 3 0 006 0V6a3 3 0 00-3-3zm-7 8a7 7 0 0014 0m-7 7v3m-3 0h6"/>
@@ -194,13 +167,12 @@
           </div>
         </a>
 
-        <!-- 4 -->
-        <a href="#" class="group relative">
+        <!-- 4 Lectores -->
+        <a href="lectores.html" class="group relative">
           <div class="card relative rounded-2xl bg-white/90 dark:bg-white/10 shadow-card ring-1 ring-brand-200/60 dark:ring-white/10 hover:ring-brand-400">
             <div class="shine absolute inset-0 rounded-2xl"></div>
             <div class="flex items-start gap-4 p-5">
               <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700 dark:bg-white/10 dark:text-brand-200 shadow-inner">
-                <!-- book open -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
                         d="M3 5a2 2 0 012-2h5a4 4 0 014 4v12a4 4 0 00-4-4H5a2 2 0 01-2-2V5zm18 0v10a2 2 0 01-2 2h-5a4 4 0 00-4 4V7a4 4 0 014-4h5a2 2 0 012 2z"/>
@@ -217,13 +189,12 @@
           </div>
         </a>
 
-        <!-- 5 -->
-        <a href="#" class="group relative">
+        <!-- 5 Multimedia y Acomodadores -->
+        <a href="audio-video-acomodadores.html" class="group relative">
           <div class="card relative rounded-2xl bg-white/90 dark:bg-white/10 shadow-card ring-1 ring-brand-200/60 dark:ring-white/10 hover:ring-brand-400">
             <div class="shine absolute inset-0 rounded-2xl"></div>
             <div class="flex items-start gap-4 p-5">
               <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700 dark:bg-white/10 dark:text-brand-200 shadow-inner">
-                <!-- play rectangle -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
                         d="M15 12l-6 4V8l6 4zM3 7a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>
@@ -240,13 +211,12 @@
           </div>
         </a>
 
-        <!-- 6 -->
-        <a href="#" class="group relative">
+        <!-- 6 Limpieza -->
+        <a href="limpieza.html" class="group relative">
           <div class="card relative rounded-2xl bg-white/90 dark:bg-white/10 shadow-card ring-1 ring-brand-200/60 dark:ring-white/10 hover:ring-brand-400">
             <div class="shine absolute inset-0 rounded-2xl"></div>
             <div class="flex items-start gap-4 p-5">
               <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700 dark:bg-white/10 dark:text-brand-200 shadow-inner">
-                <!-- broom -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
                         d="M15 11l6-6m-6 6l-3 9-3-3 9-3zM5 21l4-4"/>
@@ -263,13 +233,12 @@
           </div>
         </a>
 
-        <!-- 7 -->
-        <a href="#" class="group relative md:col-span-2">
+        <!-- 7 Grupos para el servicio -->
+        <a href="grupos.html" class="group relative md:col-span-2">
           <div class="card relative rounded-2xl bg-white/90 dark:bg-white/10 shadow-card ring-1 ring-brand-200/60 dark:ring-white/10 hover:ring-brand-400">
             <div class="shine absolute inset-0 rounded-2xl"></div>
             <div class="flex items-start gap-4 p-5">
               <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-100 text-brand-700 dark:bg-white/10 dark:text-brand-200 shadow-inner">
-                <!-- users -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
                         d="M17 20h5v-2a6 6 0 00-9.33-5M9 20H4v-2a6 6 0 0111 0v2M15 7a4 4 0 11-8 0 4 4 0 018 0z"/>
@@ -289,11 +258,11 @@
 
       <!-- LINKS FINALES -->
       <div class="mt-10 flex flex-wrap items-center gap-4">
-        <a href="https://www.jw.org" target="_blank" class="inline-flex items-center gap-2 rounded-xl border border-brand-300 bg-white/80 dark:bg-white/10 dark:border-white/10 px-4 py-2 text-slate-800 dark:text-slate-100 shadow hover:shadow-md hover:border-brand-400">
+        <a href="https://www.jw.org" target="_blank" class="inline-flex items-center gap-2 rounded-xl border border-brand-300 bg-white/80 dark:bg-white/10 dark:border-white/10 px-4 py-2 text-slate-800 dark:text-slate-100 shadow hover:shadow-md hover:border-brand-400" rel="noopener noreferrer">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand-600" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zM7 12h10l-5 5-5-5z"/></svg>
           Sitio oficial jw.org
         </a>
-        <a href="https://wol.jw.org" target="_blank" class="inline-flex items-center gap-2 rounded-xl border border-brand-300 bg-white/80 dark:bg-white/10 dark:border-white/10 px-4 py-2 text-slate-800 dark:text-slate-100 shadow hover:shadow-md hover:border-brand-400">
+        <a href="https://wol.jw.org" target="_blank" class="inline-flex items-center gap-2 rounded-xl border border-brand-300 bg-white/80 dark:bg-white/10 dark:border-white/10 px-4 py-2 text-slate-800 dark:text-slate-100 shadow hover:shadow-md hover:border-brand-400" rel="noopener noreferrer">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand-600" viewBox="0 0 24 24" fill="currentColor"><path d="M4 5h16v14H4zM6 7h12v2H6zm0 4h12v2H6zm0 4h8v2H6z"/></svg>
           Biblioteca en Línea
         </a>
@@ -302,7 +271,6 @@
   </div>
 
   <script>
-    // Persistencia de tema: sólo en la página principal
     (function(){
       const root = document.documentElement;
       const saved = localStorage.getItem('theme');
@@ -315,7 +283,6 @@
       });
     })();
 
-    // Efecto "tilt" + brillo
     document.querySelectorAll('.card').forEach((card) => {
       const shine = card.querySelector('.shine');
       let rect;
@@ -336,7 +303,6 @@
       });
     });
 
-    // Ripple en botones "Acceder"
     document.querySelectorAll('.ripple').forEach(btn=>{
       btn.addEventListener('click', (e)=>{
         const r = btn.getBoundingClientRect();
@@ -353,4 +319,4 @@
     });
   </script>
 </body>
-</html>
+  </html>
